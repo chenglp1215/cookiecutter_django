@@ -1,0 +1,32 @@
+version: '2'
+
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    command: /gunicorn.sh
+    env_file: .env
+
+{% if cookiecutter.use_celery == 'y' %}
+  celeryworker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    env_file: .env
+    command: celery -A {{cookiecutter.project_slug}}.taskapp worker -l INFO
+
+  celerybeat:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    env_file: .env
+    command: celery -A {{cookiecutter.project_slug}}.taskapp beat -l INFO
+{% endif %}

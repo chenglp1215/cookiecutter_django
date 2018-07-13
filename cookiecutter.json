@@ -1,0 +1,15 @@
+{
+    "project_name": "Project Name",
+    "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
+    "author_name": "chenglp",
+    "static_url": "/",
+    "email": "chenglp1215@163.com",
+    "description": "A short description of the project.",
+    "domain_name": "0.0.0.0",
+    "version": "0.1.0",
+    "timezone": "Asia/Shanghai",
+    "use_celery": "y",
+    "use_docker": "y",
+    "use_sentry_for_error_reporting": "y",
+    "use_python3": "n"
+}
